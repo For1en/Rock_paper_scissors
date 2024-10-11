@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RPS game</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/main.css" />
+  </head>
+  <body>
+    <center>
+      <div class="container"><h1 class="headline">Rock Paper Scissers</h1></div>
+    </center>
+    <div class="container text-center">
+      <div class="counter_1">
+        <h1>Your Score</h1>
+        <p id="your_score"></p>
+      </div>
+      <div class="counter_2">
+        <h1>Comp Score</h1>
+        <p id="comp_score"></p>
+      </div>
+      <div class="row">
+        <div class="col">
+          <button class="btn btn-dark" value="rock">
+            <img
+              class="move-icon"
+              src="pictures/rock-emoji.png"
+              alt="scissors-pcr"
+            />
+          </button>
+        </div>
+        <div class="col">
+          <button class="btn btn-dark" value="paper">
+            <img
+              class="move-icon"
+              src="pictures/paper-emoji.png"
+              alt="scissors-pcr"
+            />
+          </button>
+        </div>
+        <div class="col">
+          <button class="btn btn-dark" value="scissors">
+            <img
+              class="move-icon"
+              src="pictures/scissors-emoji.png"
+              alt="scissors-pcr"
+            />
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <button class="btn btn-success" style="width: 150px; margin: 10px">
+            RESET RESULT
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let score = JSON.parse(localStorage.getItem("score")) || {
+        wins: 0,
+        looses: 0,
+        draws: 0,
+      };
+      function ComputerChoice() {
+        let num = Math.random();
+
+        if (num < 0.34) {
+          return "rock";
+        } else if (num < 0.67) {
+          return "paper";
+        }
+        return "scissors";
+      }
+
+      function Game(MyChoice) {
+        let comp = ComputerChoice();
+
+        if (comp === MyChoice) {
+          score.draws += 1;
+          result = `IT'S A DRAW`;
+        }
+
+        if (MyChoice === "rock" && comp === "paper") {
+          score.looses += 1;
+          result = `YOU LOST unfortunetely`;
+        } else if (MyChoice === "rock" && comp === "scissors") {
+          score.wins += 1;
+          result = `LUCKLY YOU WON`;
+        }
+
+        if (MyChoice === "paper" && comp === "scissors") {
+          score.looses += 1;
+          result = `YOU LOST unfortunetely`;
+        } else if (MyChoice === "paper" && comp === "rock") {
+          score.wins += 1;
+          result = `LUCKLY YOU WON`;
+        }
+
+        if (MyChoice === "scissors" && comp === "rock") {
+          score.looses += 1;
+          result = `YOU LOST unfortunetely`;
+        } else if (MyChoice === "scissors" && comp === "paper") {
+          score.wins += 1;
+          result = `LUCKLY YOU WON`;
+        }
+
+        localStorage.setItem("score", JSON.stringify(score));
+        return result;
+      }
+
+      const buttons = document.querySelectorAll(".btn-dark");
+      for (let button of buttons) {
+        button.onclick = function ret() {
+          let res = Game(button.value);
+          const y_score_info = document.querySelector("#your_score");
+          const c_score_info = document.querySelector("#comp_score");
+          y_score_info.textContent = `Wins: ${score.wins} Losses: ${score.looses} Draws: ${score.draws}`;
+          c_score_info.textContent = `Wins: ${score.looses} Losses: ${score.wins} Draws: ${score.draws}`;
+        };
+      }
+
+      const reset_button = document.querySelector(".btn-success");
+      reset_button.onclick = function ret() {
+        score = { wins: 0, looses: 0, draws: 0 };
+        const y_score_info = document.querySelector("#your_score");
+        const c_score_info = document.querySelector("#comp_score");
+        y_score_info.textContent = `Wins: ${score.wins} Losses: ${score.looses} Draws: ${score.draws}`;
+        c_score_info.textContent = `Wins: ${score.looses} Losses: ${score.wins} Draws: ${score.draws}`;
+      };
+    </script>
+  </body>
+</html>

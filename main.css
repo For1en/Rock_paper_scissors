@@ -1,0 +1,49 @@
+
+p{
+    color: rgba(245, 245, 245, 0.66);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 40px;
+    padding: 10px;
+}
+h1{
+    color: rgba(245, 245, 245, 0.66);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 40px;
+    padding: 10px;
+}
+body{
+    background-color: black;
+}
+.headline{
+    color: white;
+}
+.text-center{
+    max-width: 500px;
+    margin-top: 50px;
+    position: relative;
+}
+.row{
+    margin-top: 50px;
+}
+
+.btn-dark{
+    border-radius: 100%;
+    padding: 30px;
+    border: 2px solid white;
+}
+
+.move-icon{
+    height: 50px;
+}
+.counter_1,
+.counter_2{
+    position: absolute;
+    width: 200px;
+    border: 2px solid rgba(244, 244, 232, 0.377);
+}
+.counter_1{
+    left: -200px;
+}
+.counter_2{
+    right: -200px;
+}
