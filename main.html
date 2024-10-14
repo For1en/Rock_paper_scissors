@@ -19,11 +19,15 @@
     <div class="container text-center">
       <div class="counter_1">
         <h1>Your Score</h1>
-        <p id="your_score"></p>
+        <p id="y-wins">Wins: </p>
+        <p id="y-losses">Losses: </p>
+        <p id="y-draws">Draws: </p>
       </div>
       <div class="counter_2">
         <h1>Comp Score</h1>
-        <p id="comp_score"></p>
+        <p id="c-wins">Wins: </p>
+        <p id="c-losses">Losses: </p>
+        <p id="c-draws">Draws: </p>
       </div>
       <div class="row">
         <div class="col">
@@ -64,78 +68,11 @@
       </div>
     </div>
 
-    <script>
-      let score = JSON.parse(localStorage.getItem("score")) || {
-        wins: 0,
-        looses: 0,
-        draws: 0,
-      };
-      function ComputerChoice() {
-        let num = Math.random();
+    <center><div>
+      <p id="result-text"></p>
+    </div></center>
 
-        if (num < 0.34) {
-          return "rock";
-        } else if (num < 0.67) {
-          return "paper";
-        }
-        return "scissors";
-      }
-
-      function Game(MyChoice) {
-        let comp = ComputerChoice();
-
-        if (comp === MyChoice) {
-          score.draws += 1;
-          result = `IT'S A DRAW`;
-        }
-
-        if (MyChoice === "rock" && comp === "paper") {
-          score.looses += 1;
-          result = `YOU LOST unfortunetely`;
-        } else if (MyChoice === "rock" && comp === "scissors") {
-          score.wins += 1;
-          result = `LUCKLY YOU WON`;
-        }
-
-        if (MyChoice === "paper" && comp === "scissors") {
-          score.looses += 1;
-          result = `YOU LOST unfortunetely`;
-        } else if (MyChoice === "paper" && comp === "rock") {
-          score.wins += 1;
-          result = `LUCKLY YOU WON`;
-        }
-
-        if (MyChoice === "scissors" && comp === "rock") {
-          score.looses += 1;
-          result = `YOU LOST unfortunetely`;
-        } else if (MyChoice === "scissors" && comp === "paper") {
-          score.wins += 1;
-          result = `LUCKLY YOU WON`;
-        }
-
-        localStorage.setItem("score", JSON.stringify(score));
-        return result;
-      }
-
-      const buttons = document.querySelectorAll(".btn-dark");
-      for (let button of buttons) {
-        button.onclick = function ret() {
-          let res = Game(button.value);
-          const y_score_info = document.querySelector("#your_score");
-          const c_score_info = document.querySelector("#comp_score");
-          y_score_info.textContent = `Wins: ${score.wins} Losses: ${score.looses} Draws: ${score.draws}`;
-          c_score_info.textContent = `Wins: ${score.looses} Losses: ${score.wins} Draws: ${score.draws}`;
-        };
-      }
-
-      const reset_button = document.querySelector(".btn-success");
-      reset_button.onclick = function ret() {
-        score = { wins: 0, looses: 0, draws: 0 };
-        const y_score_info = document.querySelector("#your_score");
-        const c_score_info = document.querySelector("#comp_score");
-        y_score_info.textContent = `Wins: ${score.wins} Losses: ${score.looses} Draws: ${score.draws}`;
-        c_score_info.textContent = `Wins: ${score.looses} Losses: ${score.wins} Draws: ${score.draws}`;
-      };
+    <script src="main.js">
     </script>
   </body>
 </html>
