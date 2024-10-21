@@ -4,6 +4,8 @@ let score = JSON.parse(localStorage.getItem("score")) || {
   draws: 0,
 };
 
+
+
 function ComputerChoice() {
   let num = Math.random();
 
@@ -14,6 +16,8 @@ function ComputerChoice() {
   }
   return "scissors";
 }
+
+
 
 function Game(MyChoice) {
   let comp = ComputerChoice();
@@ -51,12 +55,37 @@ function Game(MyChoice) {
   return result;
 }
 
+
+
 const buttons = document.querySelectorAll(".btn-dark");
+
 for (let button of buttons) {
   button.onclick = function ret() {
+
     let res = Game(button.value);
     let result_text = document.querySelector("#result-text");
+
     result_text.textContent = res;
+
+    representResult()
+  };
+}
+
+
+const resetButton = document.querySelector('.btn-success')
+resetButton.addEventListener('click', () => resetResult())
+function resetResult(){
+  score = { wins: 0, looses: 0, draws: 0 };
+
+  let result_text = document.querySelector("#result-text");
+  result_text.textContent = "";
+
+  representResult()
+}
+
+
+
+function representResult(){
 
     document.querySelector("#y-wins").textContent = `Wins: ${score.wins}`
     document.querySelector("#y-losses").textContent = `Losses: ${score.looses}`
@@ -65,22 +94,5 @@ for (let button of buttons) {
     document.querySelector("#c-wins").textContent = `Wins: ${score.looses}`
     document.querySelector("#c-losses").textContent = `Losses: ${score.wins}`
     document.querySelector("#c-draws").textContent = `Draws: ${score.draws}`
-  };
+
 }
-const reset_button = document.querySelector(".btn-success");
-reset_button.onclick = function ret() {
-  score = { wins: 0, looses: 0, draws: 0 };
-  let result_text = document.querySelector("#result-text");
-  result_text.textContent = "";
-
-
-  y_wins.textContent = `Wins: ${score.wins}`
-  y_losses.textContent = `Losses: ${score.looses}`
-  y_draws.textContent = `Draws: ${score.draws}`
-
-  c_wins.textContent = `Wins: ${score.looses}`
-  c_losses.textContent = `Losses: ${score.wins}`
-  c_draws.textContent = `Draws: ${score.draws}`
-
-
-};
